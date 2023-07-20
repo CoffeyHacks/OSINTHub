@@ -5,6 +5,7 @@ const shodanClient = require('shodan-client');
 const SunCalc = require('suncalc');
 const NodeGeocoder = require('node-geocoder');
 const { auth } = require('express-openid-connect');
+const overpass = require('./backend/overpass'); // Add this line
 const app = express();
 
 let options = {
@@ -97,6 +98,18 @@ app.post('/suncalc', (req, res) => {
     // These can be passed to your frontend for display on the map
 
     res.json({ sunPosition });
+});
+
+// Overpass route
+app.post('/overpass', async (req, res) => {
+    const { query } = req.body;
+    try {
+        const result = await overpass.runQuery(query);
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while querying Overpass.");
+    }
 });
 
 // Server
