@@ -1,12 +1,33 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const shodanClient = require('shodan-client');
 const SunCalc = require('suncalc');
+const NodeGeocoder = require('node-geocoder');
+const { auth } = require('express-openid-connect');
 const app = express();
+
+let options = {
+    provider: 'openstreetmap'
+  };
+  
+let geoCoder = NodeGeocoder(options);
 
 app.use(express.json());
 
 let OPS_token = null;
+
+// Auth0 configuration
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET,
+  })
+);
 
 // Function to authenticate with OPS
 async function authenticate() {
@@ -44,8 +65,7 @@ app.post('/login', async (req, res) => {
 // Shodan search route
 app.post('/shodan', async (req, res) => {
     const { searchType, searchInput } = req.body;
-    // Add your Shodan API key here
-    const SHODAN_API_KEY = 'your-shodan-api-key';
+    const SHODAN_API_KEY = process.env.SHODAN_API_KEY;
     let results;
     try {
         if (searchType === 'host') {
@@ -60,30 +80,6 @@ app.post('/shodan', async (req, res) => {
     }
     // Render the shodan.ejs template with the search results
     res.render('shodan', { results });
-});
-
-// Steve's Google Search route
-app.post('/stevesgoogle', async (req, res) => {
-    const { searchQuery } = req.body;
-    // Add code here to make API request to Steve's Google Search API with search query.
-});
-
-// Dehashed route
-app.post('/dehashed', async (req, res) => {
-    const { searchCriteria } = req.body;
-    // Add code here to make API request to Dehashed with search criteria.
-});
-
-// HaveIBeenPwned route
-app.post('/haveibeenpwned', async (req, res) => {
-    const { searchEmail } = req.body;
-    // Add code here to make API request to HaveIBeenPwned with email address.
-});
-
-// WhatsMyName route
-app.post('/whatsmyname', async (req, res) => {
-    const { searchUsername } = req.body;
-    // Add code here to make API request to WhatsMyName with username.
 });
 
 app.post('/suncalc', (req, res) => {
@@ -105,5 +101,3 @@ app.post('/suncalc', (req, res) => {
 
 // Server
 app.listen(3000, () => console.log('Server running on port 3000'));
-
-
