@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocator</title>
+</head>
+<body>
+    <h1>Geolocator</h1>
+    
+    <!-- Form for inputting landmarks -->
+    <form action="/overpass" method="POST">
+        <label for="landmarks">Enter landmarks:</label><br>
+        <input type="text" id="landmarks" name="landmarks"><br>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <!-- Placeholder for the map -->
+    <div id="map"></div>
+    
+    <!-- Placeholder for the locations -->
+    <div id="locations"></div>
+</body>
+</html>

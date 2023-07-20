@@ -5,13 +5,13 @@ const shodanClient = require('shodan-client');
 const SunCalc = require('suncalc');
 const NodeGeocoder = require('node-geocoder');
 const { auth } = require('express-openid-connect');
-const overpass = require('./backend/overpass'); // Add this line
+const overpass = require('./backend/overpass'); // Assuming that the overpass.js file is in the backend directory
 const app = express();
 
 let options = {
     provider: 'openstreetmap'
-  };
-  
+};
+
 let geoCoder = NodeGeocoder(options);
 
 app.use(express.json());
@@ -34,8 +34,8 @@ app.use(
 async function authenticate() {
     try {
         const response = await axios.post('https://api.openpeoplesearch.com/api/v1/User/authenticate', {
-            username: 'your-username',
-            password: 'your-password'
+            username: process.env.OPS_USERNAME,
+            password: process.env.OPS_PASSWORD
         });
         OPS_token = response.data.token;
     } catch (error) {
@@ -45,6 +45,9 @@ async function authenticate() {
 
 // Call the authenticate function when your server starts
 authenticate();
+
+// Set EJS as view engine
+app.set('view engine', 'ejs');
 
 // Routes
 app.post('/createuser', async (req, res) => {
@@ -110,6 +113,11 @@ app.post('/overpass', async (req, res) => {
         console.error(error);
         res.status(500).send("An error occurred while querying Overpass.");
     }
+});
+
+// Route for the Geolocator page
+app.get('/geolocator', (req, res) => {
+    res.render('geolocator');
 });
 
 // Server
