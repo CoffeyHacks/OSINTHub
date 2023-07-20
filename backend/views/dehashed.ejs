@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Dehashed</title>
-  </head>
-  <body>
-    <h1>Dehashed Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Dehashed API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+<head>
+    <title>Dehashed Search</title>
+</head>
+<body>
+    <h1>Dehashed Search</h1>
+    <form action="/dehashed-search" method="get">
+        <select name="searchField">
+            <option value="email">Email</option>
+            <option value="ip_address">IP Address</option>
+            <option value="username">Username</option>
+            <option value="password">Password</option>
+            <option value="hashed_password">Hashed Password</option>
+            <option value="name">Name</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" name="searchValue" placeholder="Enter search value">
+        <input type="submit" value="Search">
+    </form>
+</body>
 </html>
+

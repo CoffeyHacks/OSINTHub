@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Steve's Google</title>
-  </head>
-  <body>
-    <h1>Steve's Google Search Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Steve's Google API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+</head>
+<body>
+    <h1>Steve's Google Search</h1>
+    <form action="https://www.stevesgoogle.com/search" method="get">
+        <input type="text" name="q" placeholder="Enter your search query">
+        <input type="submit" value="Search">
+    </form>
+</body>
 </html>
+

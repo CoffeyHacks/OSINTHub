@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>SunCalc</title>
-  </head>
-  <body>
-    <h1>SunCalc Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from SunCalc API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+</head>
+<body>
+    <h1>SunCalc</h1>
+
+    <form action="/suncalc" method="POST">
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date"><br>
+        <label for="time">Time:</label><br>
+        <input type="time" id="time" name="time"><br>
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Placeholder for the map -->
+    <div id="map"></div>
+
+    <!-- Placeholder for the sun's position -->
+    <div id="sunPosition"></div>
+</body>
 </html>
+

@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Shodan</title>
-  </head>
-  <body>
-    <h1>Shodan Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Shodan API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+<head>
+  <title>Shodan Search</title>
+</head>
+<body>
+  <h1>Shodan Search</h1>
+  <form action="/shodan" method="POST">
+    <label for="searchType">Search Type:</label>
+    <select id="searchType" name="searchType">
+      <option value="host">Host</option>
+      <option value="ip">IP</option>
+      <!-- Add more options here based on the types of search you want to allow -->
+    </select>
+    <br>
+    <label for="searchInput">Search:</label>
+    <input type="text" id="searchInput" name="searchInput">
+    <br>
+    <input type="submit" value="Search">
+  </form>
+  <% if (typeof results !== 'undefined' && results.length > 0) { %>
+    <h2>Results:</h2>
+    <ul>
+      <% results.forEach(result => { %>
+        <li><%= result %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+</body>
 </html>
+

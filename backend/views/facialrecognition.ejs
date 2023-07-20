@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Facial Recognition</title>
-  </head>
-  <body>
-    <h1>Facial Recognition Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Facial Recognition API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+</head>
+<body>
+    <h1>Facial Recognition</h1>
+    <form action="/facialrecognition" method="post" enctype="multipart/form-data">
+        <label for="image">Upload an image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <button type="submit">Submit</button>
+    </form>
+</body>
 </html>
+
+

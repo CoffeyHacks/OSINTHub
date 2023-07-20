@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Open People Search</title>
-  </head>
-  <body>
-    <h1>Open People Search Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Open People Search API -->
-    <% } else { %>
-      <p>No data available</p>
+</head>
+<body>
+    <h1>Open People Search</h1>
+    
+    <form action="/openPeopleSearch" method="POST">
+        <label for="searchType">Search By:</label>
+        <select name="searchType" id="searchType">
+            <option value="Name">Name</option>
+            <option value="Phone">Phone</option>
+            <option value="Address">Address</option>
+            <option value="PO Box">PO Box</option>
+            <option value="Business">Business</option>
+            <option value="Email">Email</option>
+            <option value="Name+DOB">Name + DOB</option>
+            <option value="Name+Address">Name + Address</option>
+        </select>
+        
+        <input type="text" id="searchValue" name="searchValue" placeholder="Enter search value..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <% if (typeof results !== 'undefined' && results.length > 0) { %>
+        <% results.forEach(function(result) { %>
+            <p><strong>First Name:</strong> <%= result.firstName %></p>
+            <p><strong>Last Name:</strong> <%= result.lastName %></p>
+            <p><strong>Phone:</strong> <%= result.phone %></p>
+            <!-- Add more fields as necessary -->
+        <% }) %>
     <% } %>
-  </body>
+</body>
 </html>
+

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Have I Been Pwned</title>
-  </head>
-  <body>
-    <h1>Have I Been Pwned Results</h1>
-    <% if(data) { %>
-      <!-- Display data here -->
-      <!-- Details would depend on the structure of data returned from Have I Been Pwned API -->
-    <% } else { %>
-      <p>No data available</p>
-    <% } %>
-  </body>
+<head>
+    <title>WhatsMyName Search</title>
+</head>
+<body>
+    <h1>WhatsMyName Search</h1>
+    <form action="/whatsmyname-search" method="get">
+        <input type="text" name="username" placeholder="Enter a username">
+        <input type="submit" value="Search">
+    </form>
+</body>
 </html>
+
+
